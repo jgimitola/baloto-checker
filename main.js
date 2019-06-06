@@ -16,9 +16,14 @@ $(document).ready(function(){
      for (let j = 0; j < balaux.length; j++) {
         revanchaNumbers.push(revaux[j].textContent);         
      }    
-    precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');    
-    $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
-    $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);    
+    try {
+        precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');    
+        $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
+        $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);         
+    } catch (error) {
+        
+    }
+      
   });
 
 

@@ -25,7 +25,7 @@
     margin-top: 20px;
 }
 
-img{
+img {
     width: 250px;
     height: 83px;
 }
@@ -35,17 +35,9 @@ body {
     font-family: Peace Sans;
     background-image: url(imgs/blue_sea.jpg);
     background-position: center center;
-  
-  /* Background image doesn't tile */
-  background-repeat: no-repeat;
-  
-  /* Background image is fixed in the viewport so that it doesn't move when 
-     the content's height is greater than the image's height */
-  background-attachment: fixed;
-  
-  /* This is what makes the background image rescale based
-     on the container's size */
-  background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 h2 {
