@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="imgs/bingo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Baloto Checker</title>
+</head>
+
+<body>
+
+    <div class="container text-center xd">
+        <div class="row">
+            <div class="col">
+                <h1 class="titulo">Verificar Premios Baloto</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="acumulado-baloto">
+                    <img src="imgs/baloto_logo.png">
+                    <h2>123456</h2>
+                    <h3>MILLONES</h3>
+                </div>
+            </div>
+            <div class="col">
+                <div class="acumulado-revancha">
+                    <img src="imgs/revancha_logo.png">
+                    <h2>654321</h2>
+                    <h3>MILLONES</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="container text-center center-block">
+                    <div class="elemBall">
+                        <h6>Balota #1</h6>
+                        <input type="text" class="ball" autocomplete="off" maxlength="2">
+                    </div>
+                    <div class="elemBall">
+                        <h6>Balota #2</h6>
+                        <input type="text" class="ball" autocomplete="off" maxlength="2">
+                    </div>
+                    <div class="elemBall">
+                        <h6>Balota #3</h6>
+                        <input type="text" class="ball" autocomplete="off" maxlength="2">
+                    </div>
+                    <div class="elemBall">
+                        <h6>Balota #4</h6>
+                        <input type="text" class="ball" autocomplete="off" maxlength="2">
+                    </div>
+                    <div class="elemBall">
+                        <h6>Balota #5</h6>
+                        <input type="text" class="ball" autocomplete="off" maxlength="2">
+                    </div>
+                    <div class="elemBall">
+                        <h6>Súper Balota</h6>
+                        <input type="text" class="superball" autocomplete="off" maxlength="2">
+                    </div>
+                    <button type="button" onclick="verificar()" class="btn btn-verf">¿Hay platica?</button>
+                </div>
+                <div class="container text-center creditos">
+                    <h5 class="text-uppercase">Créditos de Recursos</h5>
+                    <p>Iconos hechos por <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp" target="_blank">Eucalyp</a> desde <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a> autorizado por <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+                    <p>Imágenes e información de resultados desde <a href="https://www.baloto.com/" title="Baloto" target="_blank">Baloto</a>.</p>
+                    <p class="error">** Esta herramienta puede contener errores **</p>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" id="balotas">
+        </div>
+        <div style="display: none;" id="valores-acumulados">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="main.js"></script>    
+</body>
+</html>
