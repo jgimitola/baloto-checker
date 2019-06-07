@@ -2,12 +2,13 @@ let balotoNumbers = [];
 let revanchaNumbers = [];
 let precios;
 
-$(document).ready(function () {    
+$(document).ready(function () {
     $("#balotas").load('https://www.baloto.com/index.php .numbers');
     $("#valores-acumulados").load('https://www.baloto.com/index.php .price');
 });
 
 $(document).ajaxComplete(function () {
+    console.log(1);
     let balaux = document.getElementsByClassName('numbers').item(0).getElementsByTagName('a');
     for (let i = 0; i < balaux.length; i++) {
         balotoNumbers.push(balaux[i].textContent);
@@ -23,9 +24,7 @@ $(document).ajaxComplete(function () {
     } catch (error) {
 
     }
-
 });
-
 
 function hasBALL(tiquete, resultado) {
     for (let k = 0; k < 5; k++) {
@@ -48,7 +47,6 @@ function verificar() {
     for (let p = 0; p < tiqaux.length; p++) {
         tiquete.push(tiqaux[p].value);
     }
-
     var aciertos = 0;
     var sb = false;
     for (let i = 0; i < 6; i++) {
@@ -63,19 +61,20 @@ function verificar() {
             }
         }
     }
-    document.writeln('<h1>Baloto</h1>')
+    $("div").remove("#entrada");
+    $("#resultado").append('<h1>Baloto</h1>');
     if (aciertos > 1) {
         if (aciertos == 6) {
-            document.writeln('<h2>Ganaste el premio mayor.</h2>');
+            $("#resultado").append('<h2>Ganaste el premio mayor.</h2>');
         } else {
             if (sb) {
                 aciertos--;
-                document.writeln('<h2>Ganaste con ' + aciertos + ' balotas y superbalota. </h2>');
+                $("#resultado").append('<h2>Ganaste con ' + aciertos + ' balotas y superbalota. </h2>');
             } else {
                 if (aciertos != 2) {
-                    document.writeln('<h2>Ganaste con ' + aciertos + ' balotas. </h2>');
+                    $("#resultado").append('<h2>Ganaste con ' + aciertos + ' balotas. </h2>');
                 } else {
-                    document.writeln('<h2>No acerto ningun premio, solo tuvo dos balotas.</h2>');
+                    $("#resultado").append('<h2>No acerto ningun premio, solo tuvo dos balotas.</h2>');
                 }
             }
         }
@@ -83,15 +82,15 @@ function verificar() {
     } else {
         if (aciertos == 1) {
             if (sb) {
-                document.writeln('<h2>Ganaste con una balota y super balota.</h2>');
+                $("#resultado").append('<h2>Ganaste con una balota y super balota.</h2>');
             } else {
-                document.writeln('<h2>No acerto ningun premio, solo tuvo una balota.</h2>');
+                $("#resultado").append('<h2>No acerto ningun premio, solo tuvo una balota.</h2>');
             }
         } else {
             if (sb) {
-                document.writeln('<h2>Ganaste con la super balota.</h2>');
+                $("#resultado").append('<h2>Ganaste con la super balota.</h2>');
             } else {
-                document.writeln('<h2>No tuvo aciertos.</h2>');
+                $("#resultado").append('<h2>No tuvo aciertos.</h2>');
             }
         }
     }
@@ -110,19 +109,19 @@ function verificar() {
             }
         }
     }
-    document.writeln('<h1>Revancha</h1>')
+    $("#resultado").append('<h1>Revancha</h1>');
     if (aciertosRevancha > 1) {
         if (aciertosRevancha == 6) {
-            document.writeln('<h2>Ganaste la revancha.</h2>');
+            $("#resultado").append('<h2>Ganaste la revancha.</h2>');
         } else {
             if (sbr) {
                 aciertosRevancha--;
-                document.writeln('<h2>Ganaste con ' + aciertosRevancha + ' balotas y superbalota. </h2>');
+                $("#resultado").append('<h2>Ganaste con ' + aciertosRevancha + ' balotas y superbalota. </h2>');
             } else {
                 if (aciertosRevancha != 2) {
-                    document.writeln('<h2>Ganaste con ' + aciertosRevancha + ' balotas. </h2>');
+                    $("#resultado").append('<h2>Ganaste con ' + aciertosRevancha + ' balotas. </h2>');
                 } else {
-                    document.writeln('<h2>No acerto ningun premio, solo tuvo dos balotas.</h2>');
+                    $("#resultado").append('<h2>No acerto ningun premio, solo tuvo dos balotas.</h2>');
                 }
             }
         }
@@ -130,16 +129,17 @@ function verificar() {
     } else {
         if (aciertosRevancha == 1) {
             if (sbr) {
-                document.writeln('<h2>Ganaste con una balota y super balota.</h2>');
+                $("#resultado").append('<h2>Ganaste con una balota y super balota.</h2>');
             } else {
-                document.writeln('<h2>No acerto ningun premio, solo tuvo una balota.</h2>');
+                $("#resultado").append('<h2>No acerto ningun premio, solo tuvo una balota.</h2>');
             }
         } else {
             if (sbr) {
-                document.writeln('<h2>Ganaste con la super balota.</h2>');
+                $("#resultado").append('<h2>Ganaste con la super balota.</h2>');
             } else {
-                document.writeln('<h2>No tuvo aciertos.</h2>');
+                $("#resultado").append('<h2>No tuvo aciertos.</h2>');
             }
         }
     }
+    $("#resultado").removeAttr("style");
 }
