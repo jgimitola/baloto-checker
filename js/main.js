@@ -1,34 +1,34 @@
-let balotoNumbers=[];
-let revanchaNumbers=[];
+let balotoNumbers = [];
+let revanchaNumbers = [];
 let precios;
 
-$(document).ready(function(){   
-    $("#balotas").load('https://www.baloto.com/index.php .numbers');     
-    $("#valores-acumulados").load('https://www.baloto.com/index.php .price');    
- }); 
+$(document).ready(function () {    
+    $("#balotas").load('https://www.baloto.com/index.php .numbers');
+    $("#valores-acumulados").load('https://www.baloto.com/index.php .price');
+});
 
- $( document ).ajaxComplete(function() {
-     let balaux = document.getElementsByClassName('numbers').item(0).getElementsByTagName('a');
-     for (let i = 0; i < balaux.length; i++) {
-        balotoNumbers.push(balaux[i].textContent);         
-     }
-     let revaux=document.getElementsByClassName('numbers').item(1).getElementsByTagName('a');
-     for (let j = 0; j < balaux.length; j++) {
-        revanchaNumbers.push(revaux[j].textContent);         
-     }    
-    try {
-        precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');    
-        $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
-        $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);         
-    } catch (error) {
-        
+$(document).ajaxComplete(function () {
+    let balaux = document.getElementsByClassName('numbers').item(0).getElementsByTagName('a');
+    for (let i = 0; i < balaux.length; i++) {
+        balotoNumbers.push(balaux[i].textContent);
     }
-      
-  });
+    let revaux = document.getElementsByClassName('numbers').item(1).getElementsByTagName('a');
+    for (let j = 0; j < balaux.length; j++) {
+        revanchaNumbers.push(revaux[j].textContent);
+    }
+    try {
+        precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');
+        $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
+        $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);
+    } catch (error) {
+
+    }
+
+});
 
 
- function hasBALL(tiquete, resultado) {     
-    for (let k = 0; k < 5; k++) {        
+function hasBALL(tiquete, resultado) {
+    for (let k = 0; k < 5; k++) {
         if (tiquete == resultado[k]) {
             return true;
         }
@@ -36,19 +36,19 @@ $(document).ready(function(){
     return false;
 }
 
-function removeBalotoDivs(){
+function removeBalotoDivs() {
     $("div").remove("#balotas");
     $("div").remove("#valores-acumulados");
 }
 
-function verificar() {   
+function verificar() {
     removeBalotoDivs();
     let tiquete = [];
-    let tiqaux = document.getElementsByTagName('input');  
+    let tiqaux = document.getElementsByTagName('input');
     for (let p = 0; p < tiqaux.length; p++) {
-         tiquete.push(tiqaux[p].value);        
-    }   
-    
+        tiquete.push(tiqaux[p].value);
+    }
+
     var aciertos = 0;
     var sb = false;
     for (let i = 0; i < 6; i++) {
@@ -94,11 +94,11 @@ function verificar() {
                 document.writeln('<h2>No tuvo aciertos.</h2>');
             }
         }
-    }   
+    }
 
     var aciertosRevancha = 0;
     var sbr = false;
-    for (let i = 0; i < 6; i++) {        
+    for (let i = 0; i < 6; i++) {
         if (i == 5) {
             if (tiquete[i] == revanchaNumbers[i]) {
                 sbr = true;
@@ -141,5 +141,5 @@ function verificar() {
                 document.writeln('<h2>No tuvo aciertos.</h2>');
             }
         }
-    }    
+    }
 }

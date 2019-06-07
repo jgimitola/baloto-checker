@@ -1,0 +1,93 @@
+@font-face {
+    font-family: Peace Sans;
+    src: url(../fonts/peace_sans.otf);
+}
+
+.btn-verf {
+    background-color: #2a425c;
+    color: aliceblue;
+    border-radius: 20px;
+    display: block;
+    width: 140px;
+    margin: 5px auto 0px auto;
+
+}
+
+.info-vital {
+    font-size: 10px;
+}
+
+button.btn-verf {
+    background-color: #2a425c;
+    color: aliceblue;
+    border-radius: 20px;
+    display: block;
+    width: 140px;
+    margin: 5px auto 0px auto;
+}
+
+input.ball {
+    width: 56px;
+    height: 58px;
+    background-image: url(../imgs/bnumber_bg.png);
+}
+
+input.superball {
+    color: aliceblue;
+    width: 56px;
+    height: 61px;
+    background-image: url(../imgs/bnumber_bg_super.png);
+}
+
+input.ball,
+input.superball {
+    font-size: 18px;
+    text-decoration: underline;
+    text-align: center;
+    border: none;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+input.ball:focus,
+input.superball:focus {
+    outline-color: transparent;
+    outline-style: none;
+}
+
+body {
+    height: 100%;
+    font-family: Peace Sans;
+    background-image: url(../imgs/blue_sea.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+p {
+    margin: 0;
+}
+
+h2,
+h3 {
+    color: aliceblue;
+}
+
+@media (min-width: 360px) and (max-width: 823px) {
+    h1 {
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 823px) {
+    h4 {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 823px) {
+    p {
+        font-size: 12px;
+    }
+}
