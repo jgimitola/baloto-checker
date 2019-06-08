@@ -10,7 +10,18 @@
     display: block;
     width: 140px;
     margin: 5px auto 0px auto;
+}
 
+.btn-verf:hover {
+    color: yellow;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }
 
 .info-vital {
@@ -39,8 +50,24 @@ input.superball {
     background-image: url(../imgs/bnumber_bg_super.png);
 }
 
+input.superballred {
+    color: red;
+    width: 56px;
+    height: 61px;
+    background-image: url(../imgs/bnumber_bg_super.png);
+}
+
+input.superballgreen {
+    color: green;
+    width: 56px;
+    height: 61px;
+    background-image: url(../imgs/bnumber_bg_super.png);
+}
+
 input.ball,
-input.superball {
+input.superball,
+input.superballred,
+input.superballgreen {
     font-size: 18px;
     text-decoration: underline;
     text-align: center;
