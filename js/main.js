@@ -7,7 +7,7 @@ $(document).ready(function () {
     $("#valores-acumulados").load('https://www.baloto.com/index.php .price');
 });
 
-$(document).ajaxComplete(function () {
+$(document).ajaxStop(function () {
     let balaux = document.getElementsByClassName('numbers').item(0).getElementsByTagName('a');
     for (let i = 0; i < balaux.length; i++) {
         balotoNumbers.push(balaux[i].textContent);
@@ -16,13 +16,9 @@ $(document).ajaxComplete(function () {
     for (let j = 0; j < balaux.length; j++) {
         revanchaNumbers.push(revaux[j].textContent);
     }
-    try {
-        precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');
-        $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
-        $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);
-    } catch (error) {
-        console.log("HEE HEE");
-    }
+    precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');
+    $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
+    $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);
 });
 
 function verificar() {
@@ -72,7 +68,7 @@ function mostrarCoincidencias(presentes, numerosjuego, sitio) {
         }
     }
     while (indexNum < 6) {
-        if (indexNum == 5) {            
+        if (indexNum == 5) {
             $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="superballred" value="' + numerosjuego[indexNum] + '"></div>');
         } else {
             $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball red" value="' + numerosjuego[indexNum] + '"></div>');
@@ -118,5 +114,5 @@ function comprobarBalotas(numtiquete, numerosjuego, sitio, sitioresultado) {
             }
         }
     }
-    mostrarCoincidencias(coincidencias, numerosjuego, sitioresultado);    
+    mostrarCoincidencias(coincidencias, numerosjuego, sitioresultado);
 }
