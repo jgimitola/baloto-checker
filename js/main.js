@@ -1,31 +1,133 @@
-let balotoNumbers = new Array();
-let revanchaNumbers = new Array();
-let precios;
+var balotoNums = [];
+var revanchaNums = [];
 
-$(document).ready(function () {
-    $("#balotas").load('https://www.baloto.com/index.php div.slider_sectoin div.numbers');
-    $("#valores-acumulados").load('https://www.baloto.com/index.php .price');
-});
+//Cargamos a la página los datos de BALOTO.
+$("#balotas").load('https://www.baloto.com/index.php div.slider_sectoin div.numbers');
+$("#valores-acumulados").load('https://www.baloto.com/index.php .price');
 
+//Cuando todos los datos hayan sido cargados, se actualizan en la página y se guardan en vectores las balotas.
 $(document).ajaxStop(function () {
-    let balaux = document.getElementsByClassName('numbers').item(0).getElementsByTagName('a');
-    tiquetificar(balaux, balotoNumbers, 0);
-    let revaux = document.getElementsByClassName('numbers').item(1).getElementsByTagName('a');
-    tiquetificar(revaux, revanchaNumbers, 0);
-    precios = document.getElementById('valores-acumulados').getElementsByTagName('h1');
-    $('.acumulado-baloto h2').text(precios[0].textContent.split("millones")[0]);
-    $('.acumulado-revancha h2').text(precios[1].textContent.split("millones")[0]);
+    let auxBalNums = document.getElementsByClassName('numbers').item(0).getElementsByTagName('a');
+    ticketify(auxBalNums, balotoNums, 0);
+    let auxRevNums = document.getElementsByClassName('numbers').item(1).getElementsByTagName('a');
+    ticketify(auxRevNums, revanchaNums, 0);
+    let prices = document.getElementById('valores-acumulados').getElementsByTagName('h1');
+    $('.acumulado-baloto h2').text(prices[0].textContent.split("millones")[0]);
+    $('.acumulado-revancha h2').text(prices[1].textContent.split("millones")[0]);
 });
+
+//Se convierten los números en formato String a arrays de enteros.
+function ticketify(auxArray, gameNums, opt) {
+    if (opt == 0) { //Tags diferentes a input.
+        for (let i = 0; i < auxArray.length; i++) {
+            gameNums.push(parseInt(auxArray[i].textContent, 10));
+        }
+    } else {
+        for (let i = 0; i < auxArray.length; i++) {
+            gameNums.push(parseInt(auxArray[i].value, 10));
+        }
+    }
+}
+
+//Ya cargado todos los datos de Baloto, eliminamos los divs donde se almacenaron temporalmente.
+function removeBalotoDivs() {
+    $("div").remove("#balotas");
+    $("div").remove("#valores-acumulados");
+}
+
+//Verficia que los números hasta la quinta balota, estén de forma ascendente.
+function isAscendant(gameNums) {
+    for (let i = 0; i < gameNums.length - 2; i++) { //"i" llega hasta el valor 4 porque se comparan parejas de números.
+        if (gameNums[i] > gameNums[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//Busca que un determinado número se encuentre en el array de resultado del sorteo.
+function hasBall(ticket, resultTicket) {
+    for (let k = 0; k < 5; k++) { //La superbalota se verifica aparte.
+        if (ticket == resultTicket[k]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+//Verifica los aciertos, los muestra y llama a la funcion que muestra las balotas graficamente.
+function checkBalls(ticket, gameNums, displayTextoTo, displayBallsTo) {
+    let matchsAmount = 0;
+    let matchNums = [];
+    let sbMatch = false;
+    for (let i = 0; i < 5; i++) {
+        if (hasBall(ticket[i], gameNums)) {
+            matchsAmount++;
+            matchNums.push(ticket[i]);
+        }
+    }
+    if (ticket[5] == gameNums[5]) {
+        sbMatch = true;
+    }
+    if (matchsAmount >= 0 && matchsAmount < 3) {
+        if (sbMatch) {
+            $(displayTextoTo).append('<h2>Gan\u00F3 con ' + matchsAmount + ' balotas y superbalota.</h2>');
+        } else {
+            $(displayTextoTo).append('<h2>No tuvo premios, tuvo ' + matchsAmount + ' balotas.</h2>');
+        }
+    } else {
+        if (matchsAmount > 2 && matchsAmount < 5) {
+            if (sbMatch) {
+                $(displayTextoTo).append('<h2>Gan\u00F3 con ' + matchsAmount + ' balotas y superbalota.</h2>');
+            } else {
+                $(displayTextoTo).append('<h2>Gan\u00F3 con ' + matchsAmount + ' balotas.</h2>');
+            }
+        } else {
+            if (sbMatch) {
+                $(displayTextoTo).append('<h2>Gan\u00F3 el premio mayor.</h2>');
+            } else {
+                $(displayTextoTo).append('<h2>Gan\u00F3 con ' + matchsAmount + ' balotas.</h2>');
+            }
+        }
+    }
+    showMatchBalls(matchNums, sbMatch, gameNums, displayBallsTo);
+}
+
+//Muestra las coincidencias.
+function showMatchBalls(matchNums, sbMatch, gameNums, displayBallsTo) {
+    let iMatchNums = 0;
+    let iGameNums = 0;
+    while (iMatchNums < matchNums.length && iGameNums < 5) {
+        if (matchNums[iMatchNums] > gameNums[iGameNums]) {
+            $(displayBallsTo).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball red" value="' + gameNums[iGameNums] + '"></div>');
+            iGameNums++;
+        } else {
+            $(displayBallsTo).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball green" value="' + gameNums[iGameNums] + '"></div>');
+            iMatchNums++;
+            iGameNums++;
+        }
+    }
+    //Si el usuario no llena todas las balotas.
+    while (iGameNums < 5) {
+        $(displayBallsTo).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball red" value="' + gameNums[iGameNums] + '"></div>');
+        iGameNums++;
+    }
+    if (sbMatch) {
+        $(displayBallsTo).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="superballgreen" value="' + gameNums[iGameNums] + '"></div>');
+    } else {
+        $(displayBallsTo).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="superballred" value="' + gameNums[iGameNums] + '"></div>');
+    }
+}
 
 function verificar() {
     removeBalotoDivs();
-    let tiquete = new Array();
-    let tiqaux = document.getElementsByTagName('input');
-    tiquetificar(tiqaux, tiquete, 1);
+    let ticket = [];
+    let auxTicket = document.getElementsByTagName('input');
+    ticketify(auxTicket, ticket, 1);
     $("div").remove("#entrada");
-    if (esAscendente(tiquete)) {
-        comprobarBalotas(tiquete, balotoNumbers, '#resultado-baloto', '#coincidencias-baloto');
-        comprobarBalotas(tiquete, revanchaNumbers, '#resultado-revancha', '#coincidencias-revancha');
+    if (isAscendant(ticket)) {
+        checkBalls(ticket, balotoNums, '#resultado-baloto', '#coincidencias-baloto');
+        checkBalls(ticket, revanchaNums, '#resultado-revancha', '#coincidencias-revancha');
     } else {
         $("#resultado").empty();
         $("#resultado").append('<h2 class="text-center">Debe introducir los valores en el mismo orden del tiquete.</h2>');
@@ -34,109 +136,4 @@ function verificar() {
         }, 3000);
     }
     $("#resultado").removeAttr("style");
-}
-
-function esAscendente(numerosjuego) {
-    for (let i = 0; i < numerosjuego.length - 2; i++) {
-        if (numerosjuego[i] > numerosjuego[i + 1]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function tiquetificar(aux, numerosjuego, op) {
-    if (op == 0) {
-        for (let i = 0; i < aux.length; i++) {
-            numerosjuego.push(parseInt(aux[i].textContent, 10));
-        }
-    } else {
-        for (let i = 0; i < aux.length; i++) {
-            numerosjuego.push(parseInt(aux[i].value, 10));
-        }
-    }
-}
-
-function hasBALL(tiquete, resultado) {
-    for (let k = 0; k < 5; k++) {
-        if (tiquete == resultado[k]) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function removeBalotoDivs() {
-    $("div").remove("#balotas");
-    $("div").remove("#valores-acumulados");
-}
-
-function mostrarCoincidencias(presentes, numerosjuego, sitio) {
-    var indexPre = 0;
-    var indexNum = 0;
-    while (indexPre < presentes.length && indexNum < 6) {        
-        if (presentes[indexPre] > numerosjuego[indexNum] && indexNum != 5) {
-            $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball red" value="' + numerosjuego[indexNum] + '"></div>');
-            indexNum++;
-        } else {
-            if (presentes[indexPre] == numerosjuego[indexNum]) {
-                if (indexNum == 5) {
-                    $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="superballgreen" value="' + numerosjuego[indexNum] + '"></div>');
-                } else {
-                    $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball green" value="' + numerosjuego[indexNum] + '"></div>');
-                }
-                indexPre++;
-                indexNum++;
-            }else{
-                $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball red" value="' + numerosjuego[indexNum] + '"></div>');
-                indexNum++;
-            }
-        }
-    }
-    while (indexNum < 6) {
-        if (indexNum == 5) {
-            $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="superballred" value="' + numerosjuego[indexNum] + '"></div>');
-        } else {
-            $(sitio).append('<div class="col-3 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center"><input type="text" readonly="" class="ball red" value="' + numerosjuego[indexNum] + '"></div>');
-        }
-        indexNum++;
-    }
-}
-
-function comprobarBalotas(numtiquete, numerosjuego, sitio, sitioresultado) {
-    var aciertos = 0;
-    var coincidencias = new Array();
-    var sb = false;
-    for (let i = 0; i < 5; i++) {
-        if (hasBALL(numtiquete[i], numerosjuego)) {
-            aciertos++;
-            coincidencias.push(numtiquete[i]);
-        }
-    }
-    if (numtiquete[5] == numerosjuego[5]) {
-        sb = true;
-        coincidencias.push(numtiquete[5]);
-    }
-    if (aciertos >= 0 && aciertos < 3) {
-        if (sb) {
-            $(sitio).append('<h2>Gan\u00F3 con ' + aciertos + ' balotas y superbalota.</h2>');
-        } else {
-            $(sitio).append('<h2>No tuvo premios, tuvo ' + aciertos + ' balotas.</h2>');
-        }
-    } else {
-        if (aciertos > 2 && aciertos < 5) {
-            if (sb) {
-                $(sitio).append('<h2>Gan\u00F3 con ' + aciertos + ' balotas y superbalota.</h2>');
-            } else {
-                $(sitio).append('<h2>Gan\u00F3 con ' + aciertos + ' balotas.</h2>');
-            }
-        } else {
-            if (sb) {
-                $(sitio).append('<h2>Gan\u00F3 el premio mayor.</h2>');
-            } else {
-                $(sitio).append('<h2>Gan\u00F3 con ' + aciertos + ' balotas.</h2>');
-            }
-        }
-    }
-    mostrarCoincidencias(coincidencias, numerosjuego, sitioresultado);
 }
