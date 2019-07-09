@@ -41,6 +41,7 @@ $(document).ajaxStop(function () {
     let prices = document.getElementById('valores-acumulados').getElementsByTagName('h1');
     $('.acumulado-baloto h2').text(prices[0].textContent.split("millones")[0]);
     $('.acumulado-revancha h2').text(prices[1].textContent.split("millones")[0]);
+    $("#balotas").remove();
     $("#valores-acumulados").remove();
 });
 
