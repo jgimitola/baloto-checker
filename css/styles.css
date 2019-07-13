@@ -1,1 +1,122 @@
-@font-face{font-family:Peace Sans;src:url(../fonts/peace_sans.otf)}.btn-verf{background-color:#2a425c;color:#f0f8ff;border-radius:20px;display:block;width:140px;margin:5px auto 0}.btn-verf:hover{color:#ff0}.green{color:green}.red{color:red}.info-vital{font-size:10px}button.btn-verf{background-color:#2a425c;color:#f0f8ff;border-radius:20px;display:block;width:140px;margin:5px auto 0}input.ball{width:56px;height:58px;background-image:url(../imgs/bnumber_bg.png)}input.superball{color:#f0f8ff;width:56px;height:61px;background-image:url(../imgs/bnumber_bg_super.png)}input.superballred{color:red;width:56px;height:61px;background-image:url(../imgs/bnumber_bg_super.png)}input.superballgreen{color:green;width:56px;height:61px;background-image:url(../imgs/bnumber_bg_super.png)}input.ball,input.superball,input.superballred,input.superballgreen{font-size:18px;text-decoration:underline;text-align:center;border:none;background-repeat:no-repeat;background-color:transparent}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input.ball:focus,input.superball:focus{outline-color:transparent;outline-style:none}body{height:100%;font-family:Peace Sans;background-image:url(../imgs/blue_sea.jpg);background-position:center center;background-repeat:no-repeat;background-attachment:fixed;background-size:cover}p{margin:0}h2,h3{color:#f0f8ff}@media (min-width: 360px) and (max-width: 823px){h1{font-size:25px}h4{font-size:20px}p{font-size:12px}}
+@font-face {
+    font-family: Peace Sans;
+    src: url(../fonts/peace_sans.otf)
+}
+
+.btn-verf {
+    background-color: #2a425c;
+    color: #f0f8ff;
+    border-radius: 20px;
+    display: block;
+    width: 140px;
+    margin: 5px auto 0
+}
+
+.btn-verf:hover {
+    color: #ff0
+}
+
+.green {
+    color: green
+}
+
+.red {
+    color: red
+}
+
+.info-vital {
+    font-size: 10px
+}
+
+button.btn-verf {
+    background-color: #2a425c;
+    color: #f0f8ff;
+    border-radius: 20px;
+    display: block;
+    width: 140px;
+    margin: 5px auto 0
+}
+
+input.ball {
+    width: 56px;
+    height: 58px;
+    background-image: url(../imgs/bnumber_bg.png)
+}
+
+input.superball {
+    color: #f0f8ff;
+    width: 56px;
+    height: 61px;
+    background-image: url(../imgs/bnumber_bg_super.png)
+}
+
+input.superballred {
+    color: red;
+    width: 56px;
+    height: 61px;
+    background-image: url(../imgs/bnumber_bg_super.png)
+}
+
+input.superballgreen {
+    color: green;
+    width: 56px;
+    height: 61px;
+    background-image: url(../imgs/bnumber_bg_super.png)
+}
+
+input.ball,
+input.superball,
+input.superballred,
+input.superballgreen {
+    font-size: 18px;
+    text-decoration: underline;
+    text-align: center;
+    border: none;
+    background-repeat: no-repeat;
+    background-color: transparent
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+input.ball:focus,
+input.superball:focus {
+    outline-color: transparent;
+    outline-style: none
+}
+
+body {
+    height: 100%;
+    font-family: Peace Sans;
+    background-image: url(../imgs/blue_sea.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover
+}
+
+p {
+    margin: 0
+}
+
+h2,
+h3 {
+    color: #f0f8ff
+}
+
+@media (min-width: 360px) and (max-width: 823px) {
+    h1 {
+        font-size: 25px
+    }
+
+    h4 {
+        font-size: 20px
+    }
+
+    p {
+        font-size: 12px
+    }
+}
