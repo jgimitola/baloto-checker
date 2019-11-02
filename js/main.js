@@ -112,7 +112,7 @@ function removeBalotoDivs() {
 //Verficia que los números hasta la quinta balota, estén de forma ascendente.
 function isAscendant(gameNums) {
     for (let i = 0; i < gameNums.length - 2; i++) { //"i" llega hasta el valor 4 porque se comparan parejas de números.
-        if (gameNums[i] > gameNums[i + 1]) {
+        if (gameNums[i] >= gameNums[i + 1]) {
             return false;
         }
     }
